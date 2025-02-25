@@ -40,10 +40,12 @@ def lanceerhoek(v0, x_doel, h_doel, g=9.81, Cd=0.47, rho=1.225, A=0.001, m=0.005
         return np.interp(x_doel, x_vals, y_vals) - h_doel
 
     theta_oplossing = fsolve(zoek_hoek, [np.radians(45)])
-        #neemt theta als de gemiddelde waarde van de hoek voor de gemiddeld snelste tijd om de correcte hoek te vinden
-    return np.degrees(theta_oplossing[0])
+        #neemt theta als de gemiddelde waarde van de hoek voor de gemiddeld snelste tijd om de correcte hoek te vinden, door 
+        #te kijken bij welke hoek zoek_hoek(theta) = 0
+    return np.degrees(theta_oplossing[0]) 
+        #geeft de gevonden hoek terug in graden
 
-v0 = 10 #weten wij door de kinetische kracht van de servo/motor te berekenen
+v0 = 10 #weten wij door de kracht van de servo/motor te berekenen
 x = 4 #berekent de turret
 h = 4 #berekent de turret
 
