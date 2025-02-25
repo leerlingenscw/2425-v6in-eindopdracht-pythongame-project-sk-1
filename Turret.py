@@ -14,7 +14,7 @@ def formules(t, state, g, Cd, rho, A, m):
         #formule algemene snelheid
     if v == 0:
         v = 1e-6  
-            # Vermijd deling door nul in de formules ax en ay
+            # vermijd deling door nul in de formules ax en ay
     Fd = 0.5 * Cd * rho * A * v**2  
         #formule luchtweerstand
     ax = -Fd * vx / (m * v)  
@@ -27,7 +27,7 @@ def lanceerhoek(v0, x_doel, h_doel, g=9.81, Cd=0.47, rho=1.225, A=0.001, m=0.005
         #deze waarden staan niet vast
     def zoek_hoek(theta):
         theta = theta[0]  
-            #Zorg ervoor dat theta een scalaire waarde is
+            #zorgt ervoor dat theta een scalaire waarde is
         vx0 = v0 * np.cos(theta) 
             #formule beginsnelheid op de x-as
         vy0 = v0 * np.sin(theta) 
@@ -36,10 +36,11 @@ def lanceerhoek(v0, x_doel, h_doel, g=9.81, Cd=0.47, rho=1.225, A=0.001, m=0.005
         x_vals, y_vals = sol.y[0], sol.y[1]
         if x_doel < np.min(x_vals) or x_doel > np.max(x_vals):
             return np.inf  
-                #Vermijd extrapolatie buiten de gesimuleerde waarden
+                #vermijd extrapolatie buiten de gesimuleerde waarden
         return np.interp(x_doel, x_vals, y_vals) - h_doel
 
     theta_oplossing = fsolve(zoek_hoek, [np.radians(45)])
+        #neemt theta als de gemiddelde waarde van de hoek voor de gemiddeld snelste tijd om de correcte hoek te vinden
     return np.degrees(theta_oplossing[0])
 
 v0 = 10 #weten wij door de kinetische kracht van de servo/motor te berekenen
